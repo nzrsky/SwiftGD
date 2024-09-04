@@ -359,7 +359,10 @@ extension Image {
         }
 
         // open our output file, then defer it to close
-        let outputFile = fopen(url.path, "wb")
+        guard let outputFile = fopen(url.path, "wb") else {
+            return false
+        }
+
         defer { fclose(outputFile) }
 
         // write the correct output format based on the path extension
